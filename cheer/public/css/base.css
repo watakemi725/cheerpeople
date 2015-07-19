@@ -1,0 +1,252 @@
+@charset "UTF-8";
+/* --------------------------------------
+   リセットCSS
+  -------------------------------------- */
+*:not(input) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent; }
+
+
+
+
+/*ゲージのコードここから*/
+
+
+
+
+
+
+/* ラインのアニメーション時の色と動き */
+
+button.prefix_sample {
+
+  font-family: 'Karla', sans-serif;
+   /* 文字サイズを1.4emに指定 */
+   font-size: 1.4em;
+
+   /* 文字の太さをboldに指定 */
+   font-weight: bold;
+letter-spacing: 0.1em;
+   /* 縦方向に10px、
+    * 横方向に30pxの余白を指定 */
+   padding: 65px 30px;
+   /* 背景色を濃い青色に指定 */
+   background-color: #FF0000;
+
+   /* 文字色を白色に指定 */
+   color: #000000;
+
+   /* ボーダーをなくす */
+   /*border-style: none;*/
+
+   text-align:center;
+
+
+-moz-animation-name: anime1;
+-moz-animation-duration: 5s;
+-moz-animation-timing-function: ease;
+-moz-animation-iteration-count: infinite;
+
+-webkit-animation-name: anime1;
+-webkit-animation-duration: 5s;
+-webkit-animation-timing-function: ease;
+-webkit-animation-iteration-count: infinite;
+
+-o-animation-name: anime1;
+-o-animation-duration: 5s;
+-o-animation-timing-function: ease;
+-o-animation-iteration-count: infinite;
+
+-ms-animation-name: anime1;
+-ms-animation-duration: 5s;
+-ms-animation-timing-function: ease;
+-ms-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes anime1 {
+0% {width: 200px; height: 200px; background-color: aqua;}
+100% {width: 200px; height: 0px; background-color: blue;}
+}
+
+@-webkit-keyframes anime1 {
+0% {width: 200px; height: 200px; background-color: aqua;}
+100% {width: 200px; height: 0px; background-color: blue;}
+}
+
+@-o-keyframes anime1 {
+0% {width: 200px; height: 200px; background-color: aqua;}
+100% {width: 200px; height: 0px; background-color: blue;}
+}
+
+@-ms-keyframes anime1 {
+0% {width: 200px; height: 200px; background-color: aqua;}
+100% {width: 200px; height: 0px; background-color: blue;}
+}
+
+/*ここまで*/
+
+
+
+
+
+/*タイトル*/
+h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  font-family: 'Karla', sans-serif;
+}
+
+/*6文字いない〜説明*/
+p {
+  font-size: 60%;
+}
+
+/*注意書き*/
+h2 {
+  font-size: 3rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal; }
+
+ul {
+  list-style: none; }
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+a:hover {
+  border: none;
+  text-decoration: none; }
+
+strong {
+  font-weight: bold;
+  font-style: normal; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  overflow-x: hidden;
+  overflow: hidden;
+  font-size: 62.5%;
+}
+
+body {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-family: "Hiragino Kaku Gothic Pro", "Osaka", "Meiryo", "MS PGothic", sans-serif;
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+
+-moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
+
+}
+
+button.button2 {
+   font-family: 'Karla', sans-serif;
+    /* 文字サイズを1.4emに指定 */
+    font-size: 1.4em;
+
+    /* 文字の太さをboldに指定 */
+    font-weight: bold;
+letter-spacing: 0.1em;
+    /* 縦方向に10px、
+     * 横方向に30pxの余白を指定 */
+    padding: 65px 30px;
+    /* 背景色を濃い青色に指定 */
+    background-color: #FF0000;
+
+    /* 文字色を白色に指定 */
+    color: #000000;
+
+    /* ボーダーをなくす */
+    border-style: none;
+
+    text-align:center;
+
+}
+
+
+
+div { text-align : center ;
+
+ }
+
+
+.button {
+  border: 1px solid #363636;
+  background: #747474;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(to bottom, #747474 1%, #626262 100%);
+  cursor: pointer;
+  line-height: 2.1rem; }
+  .button:hover {
+    background: linear-gradient(to bottom, #626262 1%, #747474 100%); }
+
+#wrapper {
+  height: 100%;
+  text-align: center;
+  position: relative; }
+  #wrapper .window {
+    border-radius: 5px;
+    background-color: #303030;
+    text-shadow: -1px -1px 0 #444;
+    box-shadow: 0px 0px 8.64px 0.36px rgba(0, 0, 0, 0.373); }
+    #wrapper .window > * {
+      margin-top: 20px; }
+
+/*# sourceMappingURL=base.css.map */
+
+
+.wrapper {
+  font-family: 'Karla', sans-serif;
+}
+
+.title {
+  margin: 30px auto;
+  background: url("../img/top3.png") 0 0 no-repeat;
+  width: 320px;
+  height: 100px;
+}
+
+
+.textInput {
+  border: solid 1px #666;
+  width: 300px;
+  height: 30px;
+  display: block;
+  margin: 0 auto 30px;
+  font-size: 2rem;
+}
+
+.send {
+  margin: 0 auto 30px;
+  background: url("../img/countdown.png") 0 0 no-repeat;
+  width: 200px;
+  height: 200px;
+  border: none;
+  padding: 0;
+}
