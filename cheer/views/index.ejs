@@ -1,147 +1,186 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
-    <!-- <meta charset="UTF-8"> -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!-- socketIO いれこむ	 -->
-    <!--<script src="/socket.io/socket.io.js"></script>-->
 
-    <!-- JSをいれこむ -->
-    <script src="/js/jquery.min.js"></script>
-    <!--<script src="./js/main.js"></script>-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <!--<script src="/socket.io/socket.io.js"></script>-->
 
-    <!-- cssをいれこむ -->
-    <link rel="stylesheet" href="/css/base.css"/>
+  <script src="/js/jquery.min.js"></script>
+  <!--<script src="./js/main.js"></script>-->
 
-    <title>BaPA_CheerPeople</title>
+  <link rel="stylesheet" href="/css/base.css"/>
 
-
-
+  <title>BaPA_CheerPeople</title>
 </head>
 <body>
-  <iframe name="f1" width=0 height=0 style="visibility:hidden">
 
+  <iframe name="f1" width=0 height=0 style="visibility:hidden">
   </iframe>
 
+  <div class="wrapper">
 
-<!-- <p>ターミナルとブラウザのコンソールを確認</p> -->
+    <div class="title"></div>
 
+    <form method="POST" action="/cheer" id='post_cheer_form' >
+        <!-- <form method="POST" action="#" id='post_cheer_form' > -->
+        <input class="textInput" type="text" id="num" name="text">
+        <input class="send" type="submit" value="送信" id="btnON">
+    </form>
 
-<div class="wrapper">
+  </div>
 
-  <div class="title"></div>
-
-  <form method="POST" action="/cheer" onsubmit="doSomething();return false();" >
-      <input class="textInput" type="text" id="num" name="text">
-      <input class="send" type="submit"  value="送信" id="btnON" onclick="submit();">
-  </form>
-
-
-<!-- 昔のやつ -->
-<form name="param" action="#">
-  <input type="text" id="textid"><br>
-    <button class="prefix_sample" type="button" value="送信" id="btnON" onclick="OnButtonClick()">SEND</button><br>
-
-</form>
+  <script type="text/javascript">
 
 
 
 
-</div>
 
+    var count=1; //カウントの初期値
 
-<script language="javascript" type="text/javascript">
-//javaをごりごりかいていっていいぞー
+    var badtext = 'バカ,ハゲ,ばか,はげ,ぽるの,ポルノ,ロリ,ろり,あだると,アダルト,せっくす,セックス,ちんこ,ちんちん,チンチン,チンコ,ハゲ,しね,シネ,くそ,クソ,ぺにす,ぺにす,はなくそ,ハナクソ,えっち,エッチ,おっぱい,オッパイ,ちくび,チクビ,sex,fuck,cunt,piss,bitch,ビッチ,びっち,へたくそ,ヘタクソ,おんち,オンチ,かえれ,カエレ,うんこ,ウンコ,unko,';
+    //禁止文字の配列dd
 
+    // 「,(カンマ)」 で切り出しを
+    var badWords = badtext.split(",");
 
-function OnButtonClick(){
+    // カンマ区切りの文字列
+    var text = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ァ,ア,ィ,イ,ゥ,ウ,ェ,エ,ォ,オ,カ,ガ,キ,ギ,ク,グ,ケ,ゲ,コ,ゴ,サ,ザ,シ,ジ,ス,ズ,セ,ゼ,ソ,ゾ,タ,ダ,チ,ヂ,ッ,ツ,ヅ,テ,デ,ト,ド,ナ,ニ,ヌ,ネ,ノ,ハ,バ,パ,ヒ,ビ,ピ,フ,ブ,プ,ヘ,ベ,ペ,ホ,ボ,ポ,マ,ミ,ム,メ,モ,ャ,ヤ,ュ,ユ,ョ,ヨ,ラ,リ,ル,レ,ロ,ワ,ヲ,ン,ぁ,あ,ぃ,い,ぅ,う,ぇ,え,ぉ,お,か,が,き,ぎ,く,ぐ,け,げ,こ,ご,さ,ざ,し,じ,す,ず,せ,ぜ,そ,ぞ,た,だ,ち,ぢ,っ,つ,づ,て,で,と,ど,な,に,ぬ,ね,の,は,ば,ぱ,ひ,び,ぴ,ふ,ぶ,ぷ,へ,べ,ぺ,ほ,ぼ,ぽ,ま,み,む,め,も,ゃ,や,ゅ,ゆ,ょ,よ,ら,り,る,れ,ろ,わ,を,ん,0,1,2,3,4,5,6,7,8,9,!,%,&,+,-,=,?,~,×,…,、,。,〜,・,ー,！,％,＆,＋,：,＝,？,';
+
+    // 「,(カンマ)」 で切り出しを
+    var textArray = text.split(",");
+
+  function OnButtonClick() {
 
       //入力文字を小文字に変換してあげる
-      var textMessage = (document.getElementById('textid').value).toLowerCase();
-      console.log(textMessage);
+      var x = (document.getElementById('num').value).toLowerCase();
 
-//ここにpostしたいないようをajexを用いて記入してあげる
-  $.ajax({
-      url: "/cheer",
-      type: "POST",
-      // dataType: "json",
-      data: textMessage,
-      // contentType: "application/json",
-      // cache: false,
-      timeout: 5000,
-      complete: function() {
-        //called when complete
-        console.log('process complete');
-      },
+      console.log(x);
 
-      success: function(data) {
-        console.log(data);
-        console.log('process sucess');
-     },
+      //入力文字check用の配列
+      var checkTextArray = x.split("");
 
-      error: function() {
-        console.log('process error');
-      },
-    });
+      //もしも文字が6文字以内
+      if (x.length <= 12){
+
+        if (badWords.indexOf(x) >= 0){
+          alert("禁止ワード");
+          }else if (badWords.indexOf(x) < 0){
+
+          //空の配列を宣言
+          var msgBoxAfter = [];
+
+          var countDic = textArray.length;
+          var count = x.length;
+          var i ;
 
 
+          //照合
+          for(i = 0; i < count ; i=i+1){
+            msgBoxAfter[i] = textArray.indexOf(checkTextArray[i]);
+            }
 
-}
+              var minus = -1 ;
+
+                if (msgBoxAfter.indexOf(minus) < 0){
+
+              //デバッグ用に表示
+              document.getElementById('answer').innerHTML = x;
+
+              //socketIOに文字データを送信してあげる
+              // socket.emit("dataName2", { fuga : x});
 
 
 
 
 
-  console.log("nanimonai");
-function doSomething(){
-    console.log("hy");
-}
+              //ここで送るんだよー
+                $('#post_cheer_form').on('submit', function(){
+                  var textMessage = $(this).find('#num').val().toLowerCase();
+                  console.log(textMessage);
 
-function submit(){
-  console.log("go");
-}
+                  $.ajax({
+                    url: "/cheer",
+                    type: "POST",
+                    data: {
+                        text: textMessage
+                     },
+                    timeout: 5000,
+                    complete: function() {
+                      console.log('process complete');
+                    },
 
-  var cnt = 1;
+                    success: function(data) {
+                      console.log('process sucess', data);
+                    },
 
-  var btn = $(".send");
+                    error: function(e) {
+                      console.log('process error', e);
+                    },
+                  });
 
-  var counting = function(){
-    console.log(cnt);
-    cnt++;
-    if(cnt>=180){
-      cnt = 0;
+                  return false;
+
+                });
+
+
+              count = 1;
+
+              document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
+
+            }else if (msgBoxAfter.indexOf(minus) >= 0){
+
+              alert("指定した書式で入力してください");
+          }
+        }
+      }else if (x.length > 12){
+      alert("12文字以下で入力してください");
     }
-
-    // ぼたんの画像変える
-    // imgChange();
-    var texturl = preloadImages[cnt];
-    // btn.css('background-image', url(texturl));
-
-  };
+  }
 
 
 
-  var imgChange = function(){
 
-    // if(cnt == 0){
-    //   btn.css('background-image', 'url(/img/countdown.png)');
-    // } else if(cnt == 1){
-    //   btn.css('background-image', 'url(/img/countdown1.png)');
-    // } else if(cnt == 2){
-    //   btn.css('background-image', 'url(/img/countdown2.png)');
-    // } else if(cnt == 3){
-    //   btn.css('background-image', 'url(/img/countdown3.png)');
-    // }
-  };
+  //
+  //タイマーを実装していくぞーー！！
+  //
+
+      timerID = setInterval('countup()',1000); //1秒毎にcountup()を呼び出し
+
+  function countup() {
+    if(count > 0){
+
+        count--; //減算
+        // document.form_count.counter.value = count; //代入
+        // document.getElementById('output').innerHTML = count + 'sec';
+
+        document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
+
+      }if(count == 0){
+
+        // document.getElementById('output').innerHTML = 'ready';
+
+        // count=10;
+  	     document.getElementById("btnON").disabled = false; // 表示用ボタンを有効化
+       }
+
+  }
 
 
 
-  var timer = setInterval(function(){
-    counting ();
-  },500);
 
+
+
+
+
+
+
+
+
+
+  // var timer = setInterval(function(){
+  //   counting ();
+  // },500);
 
   var preloadImages = [];
 
@@ -173,160 +212,12 @@ function submit(){
       for( var i = 0; i < preloadImages.length ; i++ ){
           $("<img>").attr("src", preloadImages[i]);
       }
-
-
-
-      /////////////////////////
-      // ロードされてるかチェック用。下記は画像先読みには必要ないです。
-      // $(window).load(function() {
-      //      alert("finish");
-      // });
-
-      // $(document).on("click" , window , function(){
-      //    $("div").append("<img src='img/img_050.jpg' /> ");
-      // });
-      /////////////////////////
-
   });
 
+  $(document).on('click', function() {
+    $('#line').addClass('fullwidth');
+  });
 
-
-  /*
-
-  // サーバーに接続
-  var socket = io.connect(location.origin);
-
-  var count=1; //カウントの初期値
-
-  var badtext = 'バカ,ハゲ,ばか,はげ,ぽるの,ポルノ,ロリ,ろり,あだると,アダルト,せっくす,セックス,ちんこ,ちんちん,チンチン,チンコ,ハゲ,しね,シネ,くそ,クソ,ぺにす,ぺにす,はなくそ,ハナクソ,えっち,エッチ,おっぱい,オッパイ,ちくび,チクビ,sex,fuck,cunt,piss,bitch,ビッチ,びっち,へたくそ,ヘタクソ,おんち,オンチ,かえれ,カエレ,うんこ,ウンコ,unko,';
-  //禁止文字の配列dd
-
-  // 「,(カンマ)」 で切り出しを
-  var badWords = badtext.split(",");
-
-  // カンマ区切りの文字列
-  var text = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ァ,ア,ィ,イ,ゥ,ウ,ェ,エ,ォ,オ,カ,ガ,キ,ギ,ク,グ,ケ,ゲ,コ,ゴ,サ,ザ,シ,ジ,ス,ズ,セ,ゼ,ソ,ゾ,タ,ダ,チ,ヂ,ッ,ツ,ヅ,テ,デ,ト,ド,ナ,ニ,ヌ,ネ,ノ,ハ,バ,パ,ヒ,ビ,ピ,フ,ブ,プ,ヘ,ベ,ペ,ホ,ボ,ポ,マ,ミ,ム,メ,モ,ャ,ヤ,ュ,ユ,ョ,ヨ,ラ,リ,ル,レ,ロ,ワ,ヲ,ン,ぁ,あ,ぃ,い,ぅ,う,ぇ,え,ぉ,お,か,が,き,ぎ,く,ぐ,け,げ,こ,ご,さ,ざ,し,じ,す,ず,せ,ぜ,そ,ぞ,た,だ,ち,ぢ,っ,つ,づ,て,で,と,ど,な,に,ぬ,ね,の,は,ば,ぱ,ひ,び,ぴ,ふ,ぶ,ぷ,へ,べ,ぺ,ほ,ぼ,ぽ,ま,み,む,め,も,ゃ,や,ゅ,ゆ,ょ,よ,ら,り,る,れ,ろ,わ,を,ん,0,1,2,3,4,5,6,7,8,9,!,%,&,+,-,=,?,~,×,…,、,。,〜,・,ー,！,％,＆,＋,：,＝,？,';
-
-  // 「,(カンマ)」 で切り出しを
-  var textArray = text.split(",");
-
-function OnButtonClick() {
-
-    //入力文字を小文字に変換してあげる
-    var x = (document.getElementById('num').value).toLowerCase();
-    //入力文字check用の配列
-    var checkTextArray = x.split("");
-
-    //もしも文字が6文字以内
-    if (x.length <= 12){
-
-      if (badWords.indexOf(x) >= 0){
-        alert("禁止ワード");
-        }else if (badWords.indexOf(x) < 0){
-
-        //空の配列を宣言
-        var msgBoxAfter = [];
-
-        var countDic = textArray.length;
-        var count = x.length;
-        var i ;
-
-
-        //照合
-        for(i = 0; i < count ; i=i+1){
-          msgBoxAfter[i] = textArray.indexOf(checkTextArray[i]);
-          }
-
-            var minus = -1 ;
-
-              if (msgBoxAfter.indexOf(minus) < 0){
-
-            //デバッグ用に表示
-            document.getElementById('answer').innerHTML = x;
-
-            //socketIOに文字データを送信してあげる
-            socket.emit("dataName2", { fuga : x});
-
-            count = 1;
-
-            document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
-
-          }else if (msgBoxAfter.indexOf(minus) >= 0){
-
-            alert("指定した書式で入力してください");
-        }
-      }
-    }else if (x.length > 12){
-    alert("12文字以下で入力してください");
-  }
-}
-
-
-
-
-//
-//タイマーを実装していくぞーー！！
-//
-
-    timerID = setInterval('countup()',1000); //1秒毎にcountup()を呼び出し
-
-function countup() {
-  if(count > 0){
-
-      count--; //減算
-      // document.form_count.counter.value = count; //代入
-      document.getElementById('output').innerHTML = count + 'sec';
-
-      document.getElementById("btnON").disabled = true; // 表示用ボタンを無効化
-
-    }if(count == 0){
-
-      document.getElementById('output').innerHTML = 'ready';
-
-      // count=10;
-	     document.getElementById("btnON").disabled = false; // 表示用ボタンを有効化
-     }
-
-}
-
-
-
-  // webフォントを使用
-  WebFontConfig = {
-    google: { families: [ 'Karla::latin' ] }
-    };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })();
-
-
-  */
-</script>
-
-<script>
-
-  $(document).click(function() {
-	   $('#line').addClass('fullwidth');
-   })
-
-</script>
-
-
-
-    <!-- <input type="button" value="Exec" onclick="OnButtonClick();"/> -->
-
-<!-- <FORM NAME="form1">
-ジャンプまで、あと　
-<INPUT TYPE="text" NAME="c_down" SIZE="2" VALUE="5" class=txtstyle>
-秒</FORM> -->
-
-
-
+  </script>
 </body>
 </html>

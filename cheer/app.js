@@ -38,13 +38,13 @@ var osc = require('node-osc');
 //send用
 // こちらのIPアドレスはうっきーさんPCに合わせる
 // こちらは固定IPにしてわたぬきPORTに送る
-var oscclient = new osc.Client('172.20.10.4', 3000);
+var oscclient = new osc.Client('169.254.194.239', 3000);
 
 // '/cheer'というのが呼ばれた場合
 app.post('/cheer', function(req,res) {
   var text = req.body.text;
   var count = text.length;
-
+  console.log(req.body.text);
 
   //自分のOFに送る用
   oscclient.send('/bapacText', text);
@@ -57,7 +57,7 @@ app.post('/cheer', function(req,res) {
   for(var i = 0; i < count ; i++){
 
     msgBoxAfter[i] = textArray.indexOf(msgBoxBefore[i]);
-    console.log(textArray.indexOf(msgBoxBefore[i]));
+    // console.log(textArray.indexOf(msgBoxBefore[i]));
 
   }
 
@@ -73,6 +73,7 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+  console.log('errorだよー２');
 });
 
 // error handlers
